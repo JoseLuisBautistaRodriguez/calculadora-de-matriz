@@ -1,167 +1,478 @@
-# include <stdio.h>
-#include<stdlib.h>
+#include <stdio.h>
+#include <stdlib.h>
 #include <time.h>
 #include <windows.h>
+#include <conio.h>
 
+//VARIABLES GLOBALES------------------------------------------------
 int mat1[3][3]={};
 int mat2[3][3]={};
 int mar[3][3]={};
-int r,c,j,i,m;
+int r,c,j,i,m, n;
 int ik;
+//PROTOTIPADO DE FUNCIONES-------------------------------------------
 void imprimemat1();
 void imprimemat2();
 void imprimemar();
-int main(){
-	int ip;
-	do{
-	printf("Opciones \n");
-	printf("1)Asigna valores a las matriz 1\n");
-	printf("2)Asigna valores a las matriz 2\n");
-	printf("3)Multiplicar \n");
-	printf("4)Suma\n");
-	printf("5)Resta Matriz1-Matriz2 \n");
-	printf("6)Resta Matriz2-Matriz1 \n");
-	printf("7)Salir\n");
-	scanf("%d",&ip);
-	switch(ip){
-		case 1 :
-		system("cls");	
-		printf("Asigna valores a las matriz 1\n");
-		m=0;
-			while(m<9){
-		         for(r=0;r<3;r++){   
-	               for(c=0;c<3;c++){
-	  	              printf(" mat1 \n");
-	  	              for(i=0;i<3;i++){
-		                 for(j=0;j<3;j++){
-		                 printf(" %d",mat1[i][j]);
-			             }
-		                 printf("\n");
-			            }
-		             scanf("%d",&mat1[r][c]);
-	  	             m++;
-	  	             system("cls");
-		 	        }	
-                }        
-            }
-		imprimemat1();
-		break;
-		case 2 :
-		system("cls");	
-		printf("Asigna valores a las matriz 2\n");
-		m=0;
-		while(m<9){
-		         for(r=0;r<3;r++){   
-	               for(c=0;c<3;c++){
-	  	              printf(" mat2 \n");
-	  	              for(i=0;i<3;i++){
-		                 for(j=0;j<3;j++){
-		                 printf(" %d",mat2[i][j]);
-			             }
-		                 printf("\n");
-			            }
-		             scanf("%d",&mat2[r][c]);
-	  	             m++;
-	  	             system("cls");
-		 	        }	
-                }        
-            }
-        imprimemat2();
-		break;
-		case 3 :
-		system("cls");	
-		printf("Multiplicar\n");
-		 for(r=0;r<3;r++){ 
-	        for(c=0;c<3;c++){
-	  	    ik=mat1[r][c]*mat2[r][c];
-	  	     mar[r][c]=ik;}
-         }
-         
-         imprimemat1();
-         imprimemat2();
-         imprimemar();
-		break;	
-		case 4 :
-		system("cls");	
-		printf("Suma\n");
-		for(r=0;r<3;r++){ 
-	        for(c=0;c<3;c++){
-	  	    ik=mat1[r][c]+mat2[r][c];
-	  	     mar[r][c]=ik;}
-         }
-         
-         imprimemat1();
-         imprimemat2();
-         imprimemar();
-		break;	
-		case 5 :
-		printf("resta\n");
-		for(r=0;r<3;r++){ 
-	        for(c=0;c<3;c++){
-	  	    ik=mat1[r][c]-mat2[r][c];
-	  	     mar[r][c]=ik;}
-         }
-         system("cls");
-         imprimemat1();
-         imprimemat2();
-         imprimemar();
-		break;	
-		case 6 :
-		printf("resta\n");
-		for(r=0;r<3;r++){ 
-	        for(c=0;c<3;c++){
-	  	    ik=mat2[r][c]-mat1[r][c];
-	  	     mar[r][c]=ik;}
-         }
-         system("cls");
-         imprimemat1();
-         imprimemat2();
-         imprimemar();
-		break;	
-		case 7 :
-		printf("Salir\n");
-		break;
-		default:
-		printf("Ese numero no es opcion\n");
-	}	
-		
-	}
-	while(ip 	!=7);
+//-------------------------------------------------------------------
+
+void main()
+{ // FUNCION PRINCIPAL ----------------------------------------------
+
+	int ip , iv1 = 0, iiv1, iiv2, iv2, ivs1, ivs2, ival1, ival2, valn;
+	char cp[5];
+	system("color 70");
 	
-return 0;	
+	do
+	{	
+		for( i = 0 ; i < 10 ; i++ )
+		{//(Sangrado -For-) Menú (Imprime las indicaciones de los comandos, asi como devuelve solo valores int 1 - 7 para la variable ip)
+		
+			system("cls");
+			
+			if( iv1 == 0){
+				
+				printf("\n\t\tCalculadora de Matrices:\n\n\tPara ingresar valores random a la matriz 1 y 2 selecciona:  --- 1");
+				printf("\n\tPara ingresar de manera manual los valores a la matriz 1: ----- 2\n\tPara ingresar de manera manual los valores a la matriz 2: ----- 3\n\t");
+				
+			}else if( iv1 == 1){
+				
+				printf("\n\t\tCalculadora de Matrices:\n\n\t\t%c Las matrices ya tienen valores %c\n\n", 219, 219);
+				printf("\tPara multiplicar los valores de las matrices: ----------------- 4\n\tPara sumar los valores de las matrices: ----------------------- 5\n\t");
+				printf("Para restar la matriz 2 a la matriz 1: ------------------------ 6\n\tPara restar la matriz 1 a la matriz 2: ------------------------ 7\n\t");
+				
+			}else if( iv1 == 2){
+				
+				printf("\n\t\tCalculadora de Matrices:\n\n\t\t%c La matriz 1 ya tiene valores %c\n", 219, 219);
+				printf("\n\tPara ingresar de manera manual los valores a la matriz 2: ----- 3\n");
+				printf("\tPara multiplicar los valores de las matrices: ----------------- 4\n\tPara sumar los valores de las matrices: ----------------------- 5\n\t");
+				printf("Para restar la matriz 2 a la matriz 1: ------------------------ 6\n\tPara restar la matriz 1 a la matriz 2: ------------------------ 7\n\t");
+				
+			}else if( iv1 == 3){
+				
+				printf("\n\t\tCalculadora de Matrices:\n\n\t\t%c Las matrices ya tienen valores %c\n\n", 219, 219);
+				printf("\tPara multiplicar los valores de las matrices: ----------------- 4\n\tPara sumar los valores de las matrices: ----------------------- 5\n\t");
+				printf("Para restar la matriz 2 a la matriz 1: ------------------------ 6\n\tPara restar la matriz 1 a la matriz 2: ------------------------ 7\n\t");
+				
+			}
+			
+			printf("Para salir del programa: -------------------------------------- 8\n\n\t\tSelecciona una opci%cn: ", 162);
+			scanf("%s", &cp);
+			ip = atoi(cp);
+
+			if( iv1 == 0){
+				
+				if( ip < 0 || ip > 8 || ip == 4 || ip == 5 || ip == 6 || ip == 7 ){
+				
+					i = 0;
+					printf("\n\t\t %c Valor no valido %c\n" , 219, 219);
+					Sleep(1000);
+							
+				}else{
+				
+					i += 10;
+				
+				}
+				
+			}else if( iv1 == 1){
+				
+				if( ip < 4 || ip > 8 ){
+				
+					i = 0;
+					printf("\n\t\t %c Valor no valido %c\n" , 219, 219);
+					Sleep(1000);
+							
+				}else{
+				
+					i += 10;
+				
+				}
+				
+			}else if( iv1 == 2){
+				
+				if( ip < 3 || ip > 8 ){
+				
+					i = 0;
+					printf("\n\t\t %c Valor no valido %c\n" , 219, 219);
+					Sleep(1000);
+							
+				}else{
+				
+					i += 10;
+				
+				}
+				
+			} else if( iv1 == 3){
+				
+				if( ip < 4 || ip > 8 ){
+				
+					i = 0;
+					printf("\n\t\t %c Valor no valido %c\n" , 219, 219);
+					Sleep(1000);
+							
+				}else{
+				
+					i += 10;
+				
+				}
+				
+			}
+
+		}
+		
+		switch(ip)
+		{
+			case 1 : 
+				system ("cls");
+				srand(time(NULL));
+				
+				for(i = 0 ; i < 3 ; i++){
+					
+					ivs1 = 1 ; 
+					ivs2 = 1 ;
+					
+					printf("\n\t\t%c Selecciona el intervalo de los n%cmeros %c\n\t\t( No puede ser mayor a 180 o menor a -180)\n\n\t\tInicio de intervalo: " , 219, 163, 219);
+					scanf("%i", &iiv1);
+					printf("\t\tFin de intervalo:    ");
+					scanf("%i", &iiv2);
+					printf("\n\n\t\t");
+					
+					if( iiv1 > iiv2 ){
+						
+						ivs1 = iiv2;
+						iiv2 = iiv1;
+						iiv1 = ivs1;
+						ivs1 = 1 ; 
+						
+					}
+					
+					if( iiv1 > 180 || iiv2 > 180 || iiv1 < -180 || iiv2 < -180 || iiv1 == iiv2 ){
+						
+						printf("\n\t\t %c Valor no valido %c\n" , 219, 219);
+						i = 0;
+						
+					}else if(iiv1 < 180 || iiv2 < 180 || iiv1 > -180 || iiv2 > -180  ){
+						
+						i = 5;
+						
+					}
+				}
+				
+				for(i = 0; i < 3 ; i++){
+					
+					for( j = 0 ; j < 3 ; j++){
+						
+						if( iiv2 < 0){
+	
+							ivs2 = iiv1*(-1);
+							ivs1 = iiv2 - ivs2 ;
+							valn = rand()% ivs1 ;
+							valn = iiv1 + valn ;
+	
+						}else if( iiv2 == 0){
+	
+							ivs2 = iiv1 * (-1) ;
+							valn = rand ()% ivs2 ;
+							valn = iiv1 + valn ;
+
+						}else if( iiv1 < 0 && iiv2 > 0 ){
+	
+							ivs2 = iiv1 * (-1) ;
+							ivs1 = iiv2 + ivs2 ;
+							valn = rand()% ivs1 ;
+							valn = iiv1 + valn ;	
+		
+						}else if( iiv1 == 0){
+		
+							valn = rand()% iiv2 ;
+		
+						}else if( iiv1 > 0){
+		
+							ivs2 = iiv2 - iiv1 ;
+							valn = rand() % ivs2 ;
+							valn = valn + iiv1;
+						}
+							mat1[i][j] = valn;
+						
+						}
+					
+				}
+				
+				for(i = 0; i < 3 ; i++){
+					
+					for( j = 0 ; j < 3 ; j++){
+							
+						if( iiv2 < 0){
+	
+							ivs2 = iiv1*(-1);
+							ivs1 = iiv2 - ivs2 ;
+							valn = rand()% ivs1 ;
+							valn = iiv1 + valn ;
+	
+						}else if( iiv2 == 0){
+	
+							ivs2 = iiv1 * (-1) ;
+							valn = rand ()% ivs2 ;
+							valn = iiv1 + valn ;
+	
+						}else if( iiv1 < 0 && iiv2 > 0 ){
+	
+							ivs2 = iiv1 * (-1) ;
+							ivs1 = iiv2 + ivs2 ;
+							valn = rand()% ivs1 ;
+							valn = iiv1 + valn ;	
+	
+						}else if( iiv1 == 0){
+	
+							valn = rand()% iiv2 ;
+	
+						}else if( iiv1 > 0){
+	
+							ivs2 = iiv2 - iiv1 ;
+							valn = rand() % ivs2 ;
+	
+						}
+					
+						mat2[i][j] = valn;
+						iv1 = 1;
+					}
+					
+				}
+				break;
+			
+			case 2 :
+				system("cls");	
+				system("color 71");
+				m=0;
+				
+				while(m<9){
+		         		for(r=0;r<3;r++){   
+	               				for(c=0;c<3;c++){
+	               					
+									printf("\n\t\tAsigna valores a la Matriz 1:\n\n");
+	  	        					printf("\n\t\t\t  Matriz 1: \n\n");
+	  	           					for(i=0;i<3;i++){
+		               						for(j=0;j<3;j++){
+		               							
+		               							if(j==0){
+		               								
+		               								printf("\t\t\t");
+		               								
+		               							}
+		               							
+		                 						printf(" %.3d", mat1[i][j]);
+			             					  }
+		                 				    	printf("\n");
+			            				}
+			            				
+			            				for( n = 0; n < 5 ; n++ ){
+			            					
+			            					printf("\n\t\tIngresa el valor %d: ", m+1);
+		             						scanf("%d",&ivs1);
+			            					
+			            					if ( ivs1 > -180 && ivs1 < 180){
+			            						
+			            						mat1[r][c] = ivs1 ;
+			            						n += 10;
+			            						
+			            					}else{
+			            						
+			            						printf("\n\t\t   %c Valor no valido %c\n" , 219, 219);
+			            						n = 0 ;
+			            						Sleep(1000);
+			            					}
+			            				}
+										iv1 = 2;
+	  	             					m++;
+	  	             					system("cls");
+		 	        				}
+                			}        
+            			}
+				imprimemat1();
+				Sleep(1000);
+				break;
+		
+			case 3 :
+				system("cls");	
+				system("color 70");
+				m=0;
+				
+				while(m<9){
+					
+				         for(r=0;r<3;r++){   
+				         
+	        			       for(c=0;c<3;c++){
+	        			       	
+	        			       		printf("\n\t\tAsigna valores a la Matriz 2:\n\n");
+	  	   			          		printf("\n\t\t\t  Matriz 2: \n\n");
+	  	   			          		 
+	  	   			         			for(i=0;i<3;i++){
+		               							for(j=0;j<3;j++){
+		               							
+		               								if(j==0){
+		               								
+		               									printf("\t\t\t");
+		               								
+		               									}
+		                 								printf(" %.3d", mat2[i][j]);
+			             				  			}
+		                 				    	printf("\n");
+			            					}
+			            				
+			            				for( n = 0; n < 5 ; n++ ){
+			            					
+			            					printf("\n\t\tIngresa el valor %d: ", m+1);
+		             						scanf("%d",&ivs1);
+			            					
+			            					if ( ivs1 > -180 && ivs1 < 180){
+			            						
+			            						mat2[r][c] = ivs1 ;
+			            						n += 10;
+			            						
+			            					}else{
+			            						
+			            						printf("\n\t\t   %c Valor no valido %c\n" , 219, 219);
+			            						n = 0 ;
+			            						Sleep(1000);
+			            					}
+			            				}
+										iv1 = 3;
+	  	             					m++;
+	  	             					system("cls");
+		 	        	      }	
+                		}        
+            	}
+        		imprimemat2();
+        		Sleep(1000);
+				break;
+				
+			case 4 :
+				system("cls");	
+				printf("\n\t\t   Multiplicar:\n");
+				printf("-----------------------------------------------------------------\n");
+				for(r=0;r<3;r++){ 
+	        			for(c=0;c<3;c++){
+	  	   					ik=mat1[r][c]*mat2[r][c];
+	  	   					mar[r][c]=ik;
+						}
+         		}
+      			imprimemat1();
+         		imprimemat2();
+         		printf("\n-----------------------------------------------------------------\n");
+         		imprimemar();
+				break;
+				
+			case 5 :
+				system("cls");	
+				printf("\n\t\t   Suma:\n");
+				printf("-----------------------------------------------------------------\n");
+				for(r=0;r<3;r++){ 
+	     				for(c=0;c<3;c++){
+	  	    				ik=mat1[r][c]+mat2[r][c];
+	  	     				mar[r][c]=ik;
+						}
+         		}
+        		imprimemat1();
+         		imprimemat2();
+         		printf("\n-----------------------------------------------------------------\n");
+        		imprimemar();
+				break;	
+			
+			case 6 :
+				printf("\n\t\t   Resta\n");
+				printf("-----------------------------------------------------------------\n");
+				for(r=0;r<3;r++){ 
+	        			for(c=0;c<3;c++){
+	  				   		 ik=mat1[r][c]-mat2[r][c];
+	  	     			    mar[r][c]=ik;
+						}
+         		}
+         		system("cls");
+         		imprimemat1();
+         		imprimemat2();
+         		printf("\n-----------------------------------------------------------------\n");
+         		imprimemar();
+				break;	
+			
+			case 7 :
+				printf("\n\t\t   Resta:\n");
+				printf("-----------------------------------------------------------------\n");
+				for(r=0;r<3;r++){ 
+	        			for(c=0;c<3;c++){
+	  					    ik=mat2[r][c]-mat1[r][c];
+	  					    mar[r][c]=ik;
+						}
+         		}
+         		system("cls");
+         		imprimemat1();
+         		imprimemat2();
+         		printf("\n-----------------------------------------------------------------\n");
+         		imprimemar();
+				break;	
+			
+			case 8 :
+				printf("\n\t\t%c El programa termino %c \n\n\t\t", 219,219);
+				break;
+			
+			default:
+				printf("\n\t\t%c Ese numero no es opcion %c\n\n\t\t", 219, 219);
+		}	
+		printf("\t");
+		system("pause");
+	} while ( ip != 8 );
+
 }
 
 
 void imprimemat1(){
-printf("matriz 1\n");
-printf("\n");
-       for(r=0;r<3;r++){
+	printf("\n\t\t   %c Matriz 1 %c\n", 219, 219);
+	printf("\n");
+        for(r=0;r<3;r++){
 		    for(c=0;c<3;c++){
-		     printf(" %d",mat1[r][c]);}
-		     printf("\n");}
-printf("\n");
-	
+				if(c == 0){
+					
+					printf("\t\t  ");
+					
+				}		    	
+			     printf(" %3.3d",mat1[r][c]);
+			}
+		     printf("\n");
+	}
+	printf("\n\t\t");
 }
-
 
 void imprimemat2(){
-printf("matriz 2\n");
-printf("\n");
-       for(r=0;r<3;r++){
-		    for(c=0;c<3;c++){
-		     printf(" %d",mat2[r][c]);}
-		     printf("\n");}
-printf("\n");	
+	printf("\n\t\t   %c Matriz 2 %c\n", 219, 219);
+	printf("\n");
+        for(r=0;r<3;r++){
+			for(c=0;c<3;c++){
+				if(c == 0){
+					
+					printf("\t\t  ");
+					
+				}
+	    		printf(" %3.3d",mat2[r][c]);
+			}
+			printf("\n");
+		}
+	printf("\n\t\t");	
 }
 
-
 void imprimemar(){
-printf("matriz 3\n");	
-printf("\n");
- 
-       for(r=0;r<3;r++){
-		    for(c=0;c<3;c++){
-		     printf(" %d",mar[r][c]);}
-		     printf("\n");}
-printf("\n");	
+	
+	printf("\n\t\t %c%c%c Matriz 3 %c%c%c\n", 219, 219, 219, 219, 219, 219);	
+	printf("\n");
+        for(r=0;r<3;r++){
+			for(c=0;c<3;c++){
+				if(c == 0){
+					
+					printf("\t\t  ");
+					
+				}				
+				printf(" %3.3d",mar[r][c]);
+			}
+			printf("\n");
+		}
+	printf("\n\t\t %c%c%c Resultado %c%c%c\n", 219, 219, 219, 219, 219, 219);	
+	printf("\n\n");	
 }
